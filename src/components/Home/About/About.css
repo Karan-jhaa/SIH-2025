@@ -1,0 +1,12 @@
+@import '../../../vars.css';
+
+.about {
+    max-width: 800px;
+    margin: auto;
+    padding: 4rem 2rem;
+}
+
+.about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
