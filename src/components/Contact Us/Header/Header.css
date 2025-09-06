@@ -15,11 +15,17 @@
     width: 100%;
 }
 
-.logo{
+.logo-container{
     display: flex;
-    height: 100px;
-    width: 150px;
-    background-size: cover;
+}
+
+.logo {
+    height: 100%;
+    width: 250px !important;
+    background-image: url('/src/assets/Logo_1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
       
 .nav {
