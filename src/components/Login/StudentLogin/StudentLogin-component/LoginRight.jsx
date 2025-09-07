@@ -32,6 +32,7 @@ const LoginRight = () => {
                 // token localStorage me save hoga
               localStorage.setItem("authToken", token);
               console.log("Login successful! Token saved:", token);
+              alert("Login Successful!")
       
               // redirect to dashboard
               window.location.href = "/dashboard";

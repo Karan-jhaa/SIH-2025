@@ -1,32 +1,35 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import axios from "axios";
 import "./Quiz.css";
+import QuestionCard from "./Quiz-component/QuestionCard";
+import Pagination from "./Quiz-component/Pagination";
+import SubmitButton from "./Quiz-component/SubmitButton";
 
 const questions = [
-  "Would you like working outdoors rather than in an office.",
-  "Do you enjoy building or assembling physical objects?",
-  "Would you like a job that involves driving, operating, or controlling machines?",
-  "Do you prefer learning by doing rather than reading instructions?",
-  "Do you enjoy solving math or science problems?",
-  "Would you like a job that involves researching or analyzing data?",
-  "Do you like learning how and why things work?",
-  "Do you prefer logic and facts over opinions when making decisions?",
-  "Do you prefer unstructured tasks where you can be original?",
-  "Do you enjoy brainstorming new ideas without strict rules?",
-  "Do you prefer open-ended projects where there isn’t one “right” answer?",
-  "Would you like a job that values innovation and imagination?",
-  "Do you prefer working in teams over working alone?",
-  "Would you like a job where communication and empathy are important?",
-  "Do you enjoy listening and giving advice to others?",
-  "Do you enjoy leading group discussions or workshops?",
-  "Do you enjoy convincing others to see your point of view?",
-  "Would you like a job where you make business decisions?",
-  "Do you enjoy taking risks for potential rewards?",
-  "Do you prefer fast-paced, competitive environments?",
-  "Do you enjoy organizing files, records, or data?",
-  "Would you like a job where accuracy and attention to detail matter?",
-  "Do you enjoy working with numbers, charts, or spreadsheets?",
-  "Do you enjoy checking work for errors or inconsistencies?"
+  "Working outdoors is more enjoyable than working in an office.",
+  "Taking apart machines, engines, or gadgets to see how they work is enjoyable.",
+  "Operating, driving, or controlling machines is something I enjoy.",
+  "Learning by doing is better than learning by reading instructions.",
+  "Solving math or science problems is enjoyable.",
+  "Researching and analyzing data is interesting to me.",
+  "Discovering how and why things work is satisfying.",
+  "Experiments with uncertain outcomes are exciting and interesting.",
+  "Expressing myself through art, music, or writing is enjoyable.",
+  "Finding unique solutions that others may not think of comes naturally to me.",
+  "Open-ended projects with no single “right” answer are appealing.",
+  "Jobs that value imagination and innovation are motivating.",
+  "Working in teams is better than working alone.",
+  "Jobs where communication and empathy matter are rewarding.",
+  "Listening to people and giving advice is enjoyable.",
+  "Leading group discussions or workshops is something I like.",
+  "Setting goals and motivating myself (and others) to achieve them is satisfying.",
+  "Challenges that require decision-making are motivating.",
+  "Convincing others to support ideas or projects is enjoyable.",
+  "Fast-paced and competitive environments are exciting.",
+  "Accuracy and attention to detail are important in my work.",
+  "Following step-by-step instructions is enjoyable.",
+  "Keeping my workspace neat and organized is satisfying.",
+  "Checking work for errors or inconsistencies is satisfying."
 ];
 
 const Quiz = () => {
@@ -34,36 +37,41 @@ const Quiz = () => {
   const questionsPerPage = 4;
   const totalPages = Math.ceil(questions.length / questionsPerPage);
 
-  // Store answers: index = questionIndex, value = rating
-  const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+  const [answers, setAnswers] = useState([]);
 
   const startIndex = (currentPage - 1) * questionsPerPage;
   const currentQuestions = questions.slice(startIndex, startIndex + questionsPerPage);
 
-  // Handle rating select
   const handleRating = (questionIndex, value) => {
-    const updated = [...answers];
-    updated[questionIndex] = value;
-    setAnswers(updated);
+    setAnswers((prev) => {
+      const updated = [...prev];
+      updated[questionIndex] = {
+        question: questions[questionIndex],
+        answer: value
+      };
+      return updated;
+    });
   };
 
-  // Calculate averages per page on submit
-  const handleSubmit = () => {
-    const averages = [];
-    for (let page = 0; page < totalPages; page++) {
-      const sIndex = page * questionsPerPage;
-      const eIndex = sIndex + questionsPerPage;
-      const pageAnswers = answers.slice(sIndex, eIndex).filter((a) => a !== null);
-      if (pageAnswers.length > 0) {
-        const avg =
-          pageAnswers.reduce((acc, val) => acc + val, 0) / pageAnswers.length;
-        averages.push(avg.toFixed(2)); // 2 decimal
-      } else {
-        averages.push(null); // agar user ne skip kar diya
-      }
+  const handleSubmit = async () => {
+    // check missing answers
+    const unanswered = questions.filter((_, index) => !answers[index]?.answer);
+  
+    if (unanswered.length > 0) {
+      alert("Please answer all questions before submitting!");
+      return; // stop submission
     }
-    console.log("Per-page averages:", averages);
+  
+    try {
+      const response = await axios.post("http://localhost:5000/quiz", { answers });
+      console.log("Backend Response:", response.data);
+      alert("Answers submitted successfully!");
+    } catch (error) {
+      console.error("Error sending answers:", error);
+      alert("Error while submitting answers!");
+    }
   };
+  
 
   return (
     <>
@@ -77,75 +85,27 @@ const Quiz = () => {
           {currentQuestions.map((q, i) => {
             const questionIndex = startIndex + i;
             return (
-              <motion.div
+              <QuestionCard
                 key={questionIndex}
-                className="question-card"
-                initial={{ opacity: 0, x: i % 2 === 0 ? -100 : 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <p className="question-text">
-                  {questionIndex + 1}. {q}
-                </p>
-                <div className="rating-container">
-                  <div className="rating-options">
-                    {[1, 2, 3, 4, 5].map((val) => (
-                      <button
-                        key={val}
-                        className={`rating-bullet ${
-                          answers[questionIndex] === val ? "selected" : ""
-                        }`}
-                        onClick={() => handleRating(questionIndex, val)}
-                      >
-                        {val}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+                index={questionIndex}
+                question={q}
+                selected={answers[questionIndex]?.answer}
+                onRate={handleRating}
+              />
             );
           })}
         </div>
 
-        {/* Pagination buttons */}
-        <div className="pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
-          >
-            Prev
-          </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
 
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              className={currentPage === i + 1 ? "active" : ""}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
-          >
-            Next
-          </button>
-        </div>
-
-        {/* Submit button only on last page */}
-        {currentPage === totalPages && (
-          <div className="submit-section">
-            <button className="submit-btn" onClick={handleSubmit}>
-              Submit Answers
-            </button>
-          </div>
-        )}
+        {currentPage === totalPages && <SubmitButton onSubmit={handleSubmit} />}
       </main>
     </>
   );
 };
 
 export default Quiz;
-
