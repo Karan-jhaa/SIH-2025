@@ -38,8 +38,10 @@ const RegistrationRight = () => {
         try {
             const response = await axios.post("http://localhost:5000/register", detail);
             console.log("Server Response:", response.data);
+            alert("Registration Successful!")
         } catch (error) {
             console.error("Error:", error);
+            alert("An error occurred during registration. Please try again.")
         }
         console.log("User Details:", detail);
     };

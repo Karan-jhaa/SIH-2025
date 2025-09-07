@@ -1,13 +1,13 @@
 import React from "react";
 import "./Header.css";
-import Logo from '/src/assets/Logo_1.png'
+import Logo from '/src/assets/Logo.jpeg'
 
 const Header = () => {
   return (
     <header className="header">
       <div className="container header-inner">
         <div className="logo-container">
-          <div className="logo"></div>
+          <img src={Logo} alt="NextStep Logo" />
         </div>
 
         <nav className="nav">

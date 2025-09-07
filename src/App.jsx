@@ -19,9 +19,10 @@ function App() {
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/register' element={<StudentRegistration />} />
         <Route path='/quiz' element={
-          <ProtectedRoute >
+          //<ProtectedRoute >
             <Quiz />
-          </ProtectedRoute>}
+          //</ProtectedRoute>
+          }
         />
         <Route path='/dashboard' element={
           //<ProtectedRoute>

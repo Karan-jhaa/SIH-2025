@@ -19,13 +19,9 @@
     display: flex;
 }
 
-.logo {
-    height: 100%;
-    width: 250px !important;
-    background-image: url('/src/assets/Logo_1.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+.logo-container img{
+    height: 70px;
+    width: auto;
 }
       
 .nav {
