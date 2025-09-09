@@ -167,5 +167,5 @@ npm run dev
 
 ## 👤 Author
 
-[Kanishk Mishra](https://github.com/KanishkMishra143)
+eKnowVators
 
