@@ -1,0 +1,294 @@
+/* Dashboard layout: unified card with two columns */
+.dashboard-card-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg, #f5f7fa);
+  min-height: calc(100vh - 80px); /* leave room for header */
+}
+
+.dashboard-card {
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  gap: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+/* left column */
+.left-column {
+  width: 42%;
+  padding: 22px;
+  border-right: 1px solid #eef1f5;
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  color: #0f172a;
+}
+.greeting .username {
+  color: #0b5fff;
+}
+.greeting .small {
+  margin: 0;
+  color: #475569;
+  font-size: 13px;
+}
+
+/* graph box */
+.graph-box {
+  margin-top: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 260px;
+  box-shadow: 0 4px 18px rgba(2,6,23,0.04);
+}
+
+.graph-image {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.graph-placeholder {
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  background: repeating-linear-gradient(45deg, #f8fafc, #f1f5f9 20px);
+  border-radius: 6px;
+}
+
+/* right column */
+.right-column {
+  width: 58%;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ml-response-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(2,6,23,0.04);
+}
+
+.ml-response-card h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.recommendation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rec-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  align-items: center;
+  transition: background .12s;
+}
+.rec-item + .rec-item {
+  margin-top: 8px;
+}
+
+.rec-item:hover {
+  background: #fbfdff;
+}
+
+.rec-index {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #0b5fff;
+}
+
+.rec-title {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.rec-desc {
+  margin-top: 6px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.no-recs {
+  color: #64748b;
+  padding: 12px 0;
+}
+
+/* raw ML JSON area */
+.ml-raw {
+  background: #0b1220;
+  color: #e6eef8;
+  border-radius: 8px;
+  padding: 12px;
+  overflow: auto;
+  max-height: 220px;
+}
+.ml-json {
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+/* small responsive tweak */
+@media (max-width: 900px) {
+  .dashboard-card {
+    flex-direction: column;
+  }
+  .left-column, .right-column {
+    width: 100%;
+    border-right: none;
+  }
+  .graph-box { min-height: 200px; }
+}
+
+/* Navbar: smaller buttons and spacing */
+.header .auth-buttons .login-btn {
+  background: transparent;
+  border: 1px solid #e6e9ee;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #0b5fff;
+  text-decoration: none;
+}
+
+/* Profile circle styles */
+.profile-link { text-decoration: none; }
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #0b5fff;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(11, 95, 255, 0.18);
+}
+
+/* Add shadow to left center card (graph / greeting container) */
+.left-column .graph-box, .left-column .greeting {
+  box-shadow: 0 8px 30px rgba(15,23,42,0.06);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.left-column .graph-box {
+  margin-top: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 260px;
+  box-shadow: 0px 16px 40px rgba(2,6,23,0.12); /* stronger shadow */
+}
+/* small nav fix: make header elements align nicely */
+.header .nav a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.75);
+  color: #1f2937;
+  margin-right: 8px;
+}
+
+/* Logo smaller */
+/* Logo sizing */
+.logo-img {
+  height: 70px;   /* smaller, consistent logo height */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+/* Profile circle */
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0b5fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);  /* stronger shadow */
+  transition: transform 0.2s;
+}
+.profile-circle:hover {
+  transform: scale(1.05);
+}
+
+/* Card shadow */
+.dashboard-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* more apparent shadow */
+  margin-bottom: 20px;
+}
+
+/* Login button style (smaller, less prominent) */
+.header .auth-buttons .login-btn {
+  background: transparent;
+  border: 1px solid #d6dbe3;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* profile circle stronger shadow kept */
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0b5fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 8px 28px rgba(11,95,255,0.18);
+}

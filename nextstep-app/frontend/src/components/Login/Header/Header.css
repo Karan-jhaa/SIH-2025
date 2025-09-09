@@ -1,0 +1,62 @@
+@import '../../../vars.css';
+
+.header {
+    background: var(--nav-bg);
+    height: 20vh;
+    padding: 10px 5%;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-icon {
+    height: 150px;       /* Fixed height */
+    width: auto;        /* Auto width, aspect ratio maintain hoga */
+    object-fit: contain; /* Image distort nahi hogi */
+}
+      
+.nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav a {
+    background: var(--nav-button-bg);
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: 0.3s;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.nav a:hover {
+    opacity: 0.8;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.login-btn {
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: 0.3s;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.login-btn:hover {
+    background: var(--nav-button-bg);
+}
+
+.menu-btn {
+    display: none; /* hide in desktop */
+}
+  

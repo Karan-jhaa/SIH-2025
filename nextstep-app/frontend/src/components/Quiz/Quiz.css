@@ -1,0 +1,185 @@
+/* Global Styles */
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: #F5F7FC;
+    color: #222;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header */
+  .quiz-header {
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1516534775068-ba3e7458af70?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .quiz-header .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .quiz-title {
+    position: relative;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    z-index: 10;
+  }
+  
+  /* Main Container */
+  .main-container {
+    max-width: 900px;
+    margin: -60px auto 0 auto;
+    padding: 2rem;
+  }
+  
+  /* Question Card */
+  .question-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+    height: 100px;
+  }
+  
+  .question-text {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  /* Rating Scale */
+  .rating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .rating-container .label {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+  }
+  
+  .rating-options {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+  }
+  
+  .rating-bullet {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #D1D5DB;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .rating-bullet:hover,
+  .rating-bullet.selected {
+    background: #A99A90;
+    color: white;
+    border-color: #A99A90;
+  }
+  
+  /* Submit */
+  .submit-section {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .submit-btn {
+    background: #4D4540 !important;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background: rgba(77, 69, 64, 0.9) !important;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .pagination button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background: #4D4540;
+    color: white;
+  }
+  
+  .pagination button:disabled {
+    background: #f0f0f0;
+    cursor: not-allowed;
+  }
+  .question-card {
+    background: #fff;
+    padding: 1rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  
+  /* Odd cards -> left se */
+  .question-card:nth-child(odd) {
+    transform: translateX(-50px);
+    animation: slideInLeft 0.6s ease forwards;
+  }
+  
+  /* Even cards -> right se */
+  .question-card:nth-child(even) {
+    transform: translateX(50px);
+    animation: slideInRight 0.6s ease forwards;
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
